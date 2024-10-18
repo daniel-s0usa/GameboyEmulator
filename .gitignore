@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Project relative paths
+build/include/
+build/lib/
+build/tests/
+**/CMakeFiles
+build/src/
+doc/html/
+doc/latex/
+
