@@ -5,8 +5,7 @@ add_subdirectory(lib)
 add_subdirectory(include)
 add_subdirectory(tests)
 
+include_directories(include)
 
-# Notes 
-#find_package (Threads REQUIRED) #find pthreads package
-#target_link_libraries (my_exe my_lib ${CMAKE_THREAD_LIBS_INIT}) #link against pthreads and my_lib
-
+add_executable(${PROJECT_NAME} src/main.cpp)
+target_link_libraries(${PROJECT_NAME} mylib)
