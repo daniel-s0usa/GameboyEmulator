@@ -36,6 +36,8 @@ build/include/
 build/lib/
 build/tests/
 **/CMakeFiles
+*.cmake
+build/Makefile
 build/src/
 doc/html/
 doc/latex/
