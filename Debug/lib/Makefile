@@ -154,6 +154,30 @@ cartridge.cpp.s:
 	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/cartridge.cpp.s
 .PHONY : cartridge.cpp.s
 
+cpu.o: cpu.cpp.o
+.PHONY : cpu.o
+
+# target to build an object file
+cpu.cpp.o:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/cpu.cpp.o
+.PHONY : cpu.cpp.o
+
+cpu.i: cpu.cpp.i
+.PHONY : cpu.i
+
+# target to preprocess a source file
+cpu.cpp.i:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/cpu.cpp.i
+.PHONY : cpu.cpp.i
+
+cpu.s: cpu.cpp.s
+.PHONY : cpu.s
+
+# target to generate assembly for a file
+cpu.cpp.s:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/cpu.cpp.s
+.PHONY : cpu.cpp.s
+
 emulator.o: emulator.cpp.o
 .PHONY : emulator.o
 
@@ -190,6 +214,9 @@ help:
 	@echo "... cartridge.o"
 	@echo "... cartridge.i"
 	@echo "... cartridge.s"
+	@echo "... cpu.o"
+	@echo "... cpu.i"
+	@echo "... cpu.s"
 	@echo "... emulator.o"
 	@echo "... emulator.i"
 	@echo "... emulator.s"

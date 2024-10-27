@@ -6,7 +6,10 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "./Debug/GameboyEmulator",
-            "args": ["~/Projetos/GameboyEmulator/roms/dmg-acid2.gb"],
+            // "args": ["~/Projetos/GameboyEmulator/roms/dmg-acid2.gb"],
+            //"args": ["~/Projetos/GameboyEmulator/roms/tetris.gb"],
+            //"args": ["~/Projetos/GameboyEmulator/roms/pokemon.gb"],
+            "args": ["~/Projetos/GameboyEmulator/roms/zelda.gb"],
             "cwd": "${workspaceRoot}",
             "preLaunchTask": "build"
         }

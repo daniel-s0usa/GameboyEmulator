@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <map>
+#include <string>
 
 
 typedef struct {
@@ -34,9 +36,21 @@ class Cartridge {
         bool _open_file(char * path);
         bool _check_header_checksum(header_struct data);
         uint8_t _header_checksum_math(uint8_t value);
+        std::string _getCartridgeType(uint8_t value);
+        std::string _getLicensee(uint8_t value);
+        std::string _getRomSize(uint8_t value);
+        std::string _getRamSize(uint8_t value);
+        std::string _getDestinationCode(uint8_t value);
+        std::string _getOldLicenseeCode(uint8_t value);
+        int _getRomVersion(uint8_t value);
 
         // variables
         rom_struct _rom;
+        static std::map<uint8_t, std::string> cartridgeTypeMap;
+        static std::map<uint8_t, std::string> licenseeCodeMap;
+        static std::map<uint8_t, std::string> romSizeMap;
+        static std::map<uint8_t, std::string> ramSizeMap;
+        static std::map<uint8_t, std::string> destinationCodeMap;
 
     public:
         // methods

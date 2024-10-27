@@ -6,4 +6,6 @@ add_library(mylib
 
     cartridge.cpp
 
+    cpu.cpp
+
 )
