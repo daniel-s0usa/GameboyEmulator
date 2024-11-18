@@ -54,6 +54,9 @@ class Cartridge {
 
     public:
         // methods
-        rom_struct load_cartridge(char * path);
+        Cartridge();
+        Cartridge(char * path);
+        uint8_t read_rom_address(uint16_t address);
+        void write_rom_address(uint16_t address, uint8_t value);
 
 };

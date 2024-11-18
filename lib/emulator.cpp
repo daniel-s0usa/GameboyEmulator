@@ -4,6 +4,7 @@
 //Other component imports
 #include <cartridge.hpp>
 #include <cpu.hpp>
+#include <bus.hpp>
 
 //System imports
 #include <iostream>
@@ -14,16 +15,17 @@ int Emulator::run(int argc, char ** argv) {
     if ( argc != 2 ) {
         return 0;
     }
-
-    //load cart
-    Cartridge cart;
-    rom_struct rom = cart.load_cartridge(argv[1]);
-
-    Cpu cpu;
-
-    cpu.init();
+    cart = new Cartridge(argv[1]); //init cartridge (load and interpret cartridge contents)
+    bus = new Bus(cart);
+    cpu = new Cpu(bus);
     
 
+    while (true) {
+
+        cpu->run();
+
+
+    }
 
     return 1;
 }

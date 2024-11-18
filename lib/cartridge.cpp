@@ -135,7 +135,7 @@ std::map<uint8_t, std::string> Cartridge::destinationCodeMap = {
 /// @brief Loads the cartridge to rom structure
 /// @param path - path to rom
 /// @return rom struture with the header, data and size
-rom_struct Cartridge::load_cartridge(char * path) {
+Cartridge::Cartridge(char * path) {
 
     std::cout << path;
     std::cout << "\n";
@@ -151,9 +151,15 @@ rom_struct Cartridge::load_cartridge(char * path) {
     std::cout << "\tOld License code: " << Cartridge::_getOldLicenseeCode(_rom.rom_header.old_license_code) << '\n';
     std::cout << "\tRom version: " << Cartridge::_getRomVersion(_rom.rom_header.rom_version) << '\n';
 
+}
 
 
-    return _rom;
+uint8_t Cartridge::read_rom_address(uint16_t address) {
+    return _rom.rom_data[address];
+}
+
+void Cartridge::write_rom_address(uint16_t address, uint8_t value) {
+    _rom.rom_data[address] = value;
 }
 
 /// @brief Opens the file and interprets the data to som struct
@@ -174,10 +180,12 @@ bool Cartridge::_open_file(char * path) {
     int size = std::filesystem::file_size(path);
 
     header_struct rom_header;
-    uint8_t rom_data[size - 0x150 + 1];
+    uint8_t rom_data[size + 1];
 
     test_file.seekg(0x100, std::ios::cur);
     test_file.read(reinterpret_cast<char*> (&rom_header), sizeof rom_header);
+    test_file.clear();
+    test_file.seekg(0);
     test_file.read(reinterpret_cast<char*> (rom_data), sizeof rom_data);
 
     rom_header.title[15] = '\0';

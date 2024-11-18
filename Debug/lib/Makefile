@@ -130,6 +130,30 @@ mylib/fast:
 	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/build
 .PHONY : mylib/fast
 
+bus.o: bus.cpp.o
+.PHONY : bus.o
+
+# target to build an object file
+bus.cpp.o:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/bus.cpp.o
+.PHONY : bus.cpp.o
+
+bus.i: bus.cpp.i
+.PHONY : bus.i
+
+# target to preprocess a source file
+bus.cpp.i:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/bus.cpp.i
+.PHONY : bus.cpp.i
+
+bus.s: bus.cpp.s
+.PHONY : bus.s
+
+# target to generate assembly for a file
+bus.cpp.s:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/bus.cpp.s
+.PHONY : bus.cpp.s
+
 cartridge.o: cartridge.cpp.o
 .PHONY : cartridge.o
 
@@ -202,6 +226,30 @@ emulator.cpp.s:
 	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/emulator.cpp.s
 .PHONY : emulator.cpp.s
 
+stack.o: stack.cpp.o
+.PHONY : stack.o
+
+# target to build an object file
+stack.cpp.o:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/stack.cpp.o
+.PHONY : stack.cpp.o
+
+stack.i: stack.cpp.i
+.PHONY : stack.i
+
+# target to preprocess a source file
+stack.cpp.i:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/stack.cpp.i
+.PHONY : stack.cpp.i
+
+stack.s: stack.cpp.s
+.PHONY : stack.s
+
+# target to generate assembly for a file
+stack.cpp.s:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/stack.cpp.s
+.PHONY : stack.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -211,6 +259,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... mylib"
+	@echo "... bus.o"
+	@echo "... bus.i"
+	@echo "... bus.s"
 	@echo "... cartridge.o"
 	@echo "... cartridge.i"
 	@echo "... cartridge.s"
@@ -220,6 +271,9 @@ help:
 	@echo "... emulator.o"
 	@echo "... emulator.i"
 	@echo "... emulator.s"
+	@echo "... stack.o"
+	@echo "... stack.i"
+	@echo "... stack.s"
 .PHONY : help
 
 

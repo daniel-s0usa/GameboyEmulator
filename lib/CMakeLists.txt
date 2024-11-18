@@ -8,4 +8,8 @@ add_library(mylib
 
     cpu.cpp
 
+    bus.cpp
+
+    stack.cpp
+
 )
