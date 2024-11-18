@@ -15,7 +15,8 @@ std::map<instruction, std::string>Cpu::instructionToStringMap = {
     {instruction::INC, "INC"},
     {instruction::DEC, "DEC"},
     {instruction::LD, "LD"},
-    {instruction::XOR, "XOR"}
+    {instruction::XOR, "XOR"},
+    {instruction::JR, "JR"}
 };
 
 std::map<address_location, std::string>Cpu::address_locationToStringMap = {
@@ -37,6 +38,7 @@ std::map<address_location, std::string>Cpu::address_locationToStringMap = {
     {address_location::REG_HL_DEC, "HL-"},
     {address_location::n, "n"},
     {address_location::nn, "nn"},
+    {address_location::e, "e"},
     {address_location::AD_NONE, ""}
 };
 
@@ -59,24 +61,30 @@ std::map<operation_type, std::string>Cpu::operation_typeToStringMap = {
 std::map<uint8_t, operation> Cpu::operationMap = {
     {0x00, {instruction::NOP, address_location::AD_NONE, address_location::AD_NONE, cond_type::COND_NONE, operation_type::OP_cpuExecution}},
     {0x02, {instruction::LD, address_location::REG_BC, address_location::REG_A, cond_type::COND_NONE, operation_type::OP_8Bit}},
+    {0x05, {instruction::DEC, address_location::REG_B, address_location::AD_NONE, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x06, {instruction::LD, address_location::REG_B, address_location::n, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x0A, {instruction::LD, address_location::REG_A, address_location::REG_BC, cond_type::COND_NONE, operation_type::OP_8Bit}},
+    {0x0D, {instruction::DEC, address_location::REG_C, address_location::AD_NONE, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x0E, {instruction::LD, address_location::REG_C, address_location::n, cond_type::COND_NONE, operation_type::OP_8Bit}},
 
     {0x11, {instruction::LD, address_location::REG_DE, address_location::nn, cond_type::COND_NONE, operation_type::OP_16Bit}},
     {0x12, {instruction::LD, address_location::REG_DE, address_location::REG_A, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x16, {instruction::LD, address_location::REG_D, address_location::n, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x1A, {instruction::LD, address_location::REG_A, address_location::REG_DE, cond_type::COND_NONE, operation_type::OP_8Bit}},
+    {0x1D, {instruction::DEC, address_location::REG_E, address_location::AD_NONE, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x1E, {instruction::LD, address_location::REG_E, address_location::n, cond_type::COND_NONE, operation_type::OP_8Bit}},
 
+    {0x20, {instruction::JR, address_location::AD_NONE, address_location::e, cond_type::COND_NZ, operation_type::OP_controlFlow}},
     {0x21, {instruction::LD, address_location::REG_HL, address_location::nn, cond_type::COND_NONE, operation_type::OP_16Bit}},
     {0x22, {instruction::LD, address_location::REG_HL_INC, address_location::REG_A, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x26, {instruction::LD, address_location::REG_H, address_location::n, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x2C, {instruction::INC, address_location::REG_L, address_location::AD_NONE, cond_type::COND_NONE, operation_type::OP_8Bit}},
+    {0x2D, {instruction::DEC, address_location::REG_L, address_location::AD_NONE, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x2E, {instruction::LD, address_location::REG_L, address_location::n, cond_type::COND_NONE, operation_type::OP_8Bit}},
 
     {0x32, {instruction::LD, address_location::REG_HL_DEC, address_location::REG_A, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x36, {instruction::LD, address_location::REG_HL, address_location::n, cond_type::COND_NONE, operation_type::OP_8Bit}},
+    {0x3D, {instruction::DEC, address_location::REG_A, address_location::AD_NONE, cond_type::COND_NONE, operation_type::OP_8Bit}},
     {0x3E, {instruction::LD, address_location::REG_A, address_location::n, cond_type::COND_NONE, operation_type::OP_8Bit}},
 
     {0x40, {instruction::LD, address_location::REG_B, address_location::REG_B, cond_type::COND_NONE, operation_type::OP_8Bit}},
@@ -226,6 +234,7 @@ void Cpu::run() {
     while (true)
     {
         instruction = _bus->read(reg.pc++);
+        std::cout << "PC: " << reg.pc << '\n';
         std::cout << "Executing instruction: 0x" << std::uppercase << std::hex << static_cast<int>(instruction) << "\n";
         if (operationMap.find(instruction) != operationMap.end()){
             operation = operationMap[instruction];
@@ -241,6 +250,7 @@ void Cpu::run() {
 void Cpu::_execute_instruction(operation operation) {
 
     uint8_t value_8bit;
+    int8_t value_signed_8bit;
     uint16_t value_16bit;
     uint16_t address;
 
@@ -338,7 +348,7 @@ void Cpu::_execute_instruction(operation operation) {
         }
 
         if ((operation.operand1 || operation.operand2) == address_location::REG_HL_DEC) {
-            _decrement_register(address_location::REG_HL_DEC);
+            _decrement_register(address_location::REG_HL_DEC); //TODO: this might put Z flag to true or false
         }
 
         if ((operation.operand1 || operation.operand2) == address_location::REG_HL_INC) {
@@ -357,6 +367,14 @@ void Cpu::_execute_instruction(operation operation) {
         reg.a ^= value_8bit;
 
         _set_flags(reg.a == 0, 0, 0, 0);
+
+        break;
+
+    case instruction::JR:
+        _fetch_data_to_signed8Bit(operation.operand2, &value_signed_8bit);
+        if (_check_condition(operation.condition)) {
+            reg.pc += value_signed_8bit;
+        }
 
         break;
     
@@ -395,11 +413,11 @@ bool Cpu::_check_condition(cond_type condition) {
     switch (condition)
     {
     case cond_type::COND_NZ:
-        return ! (bool)FLAG_N;
+        return ! (bool)FLAG_Z;
     case cond_type::COND_Z:
         return (bool)FLAG_Z;
     case cond_type::COND_NC:
-        return ! (bool)FLAG_N;
+        return ! (bool)FLAG_C;
     case cond_type::COND_C:
         return (bool)FLAG_C;
     default:
@@ -539,11 +557,11 @@ void Cpu::_decrement_register(address_location address) {
             break;
         case address_location::REG_DE:
             _decrement_16bit(&reg.d, &reg.e);
-            _set_flags( reg.c == 0, 1, (reg.e & 0x0F) == 0x0F, -1);
+            _set_flags( reg.e == 0, 1, (reg.e & 0x0F) == 0x0F, -1); //TODO: Not taking reg.d into account
             break;
         case address_location::REG_HL:
             _decrement_16bit(&reg.h, &reg.l);
-            _set_flags( reg.c == 0, 1, (reg.l & 0x0F) == 0x0F, -1);
+            _set_flags( reg.l == 0, 1, (reg.l & 0x0F) == 0x0F, -1);
             break;
         default:
             throw std::invalid_argument("NOT YET IMPLEMENTED");
@@ -580,7 +598,18 @@ void Cpu::_fetch_data_to16Bit(address_location address, uint16_t * value) {
 
 void Cpu::_fetch_data_to8Bit(address_location address, uint8_t * value) {
 
-    if (address == address_location::n) {
+    if (address == address_location::n || address == address_location::e) {
+        *value = _bus->read(reg.pc++);
+    }
+    else {
+        throw std::invalid_argument("NOT YET IMPLEMENTED");
+    }
+
+}
+
+void Cpu::_fetch_data_to_signed8Bit(address_location address, int8_t * value) {
+
+    if (address == address_location::n || address == address_location::e) {
         *value = _bus->read(reg.pc++);
     }
     else {

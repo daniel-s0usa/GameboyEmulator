@@ -26,7 +26,8 @@ typedef enum{
     DEC,
     LD,
     SUB,
-    XOR
+    XOR,
+    JR
 } instruction;
 
 typedef enum{
@@ -48,6 +49,7 @@ typedef enum{
     REG_HL_INC,
     n,  // the following 8bit
     nn, // the following 16bit
+    e,  // relative Jump
     AD_NONE
 } address_location;
 
@@ -91,6 +93,7 @@ class Cpu {
         uint8_t _fetch_instruction(uint16_t);
         void _fetch_data_to16Bit(address_location address, uint16_t * value);
         void _fetch_data_to8Bit(address_location address, uint8_t * value);
+        void _fetch_data_to_signed8Bit(address_location address, int8_t * value);
         void _execute_instruction(operation operation);
         bool _check_condition(cond_type condition);
         void _push_stack(uint8_t value);
