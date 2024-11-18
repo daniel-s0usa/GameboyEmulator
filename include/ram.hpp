@@ -1,23 +1,20 @@
 #pragma once
 
-#include <cartridge.hpp>
-#include <ram.hpp>
+#include <cstdint>
 
-class Bus {
+class Ram {
     private:
         // methods
         
         // variables
-        Cartridge * _cartridge;
-        Ram _ram;
+        uint8_t _wram[0x2000];   //0xDFFF - 0xC000 + 1
+        uint8_t _hram[0x007F];   //0xFFFE - 0xFF80 + 1
 
     public:
         // Constructor
-        Bus(Cartridge * cartridge);
 
         // methods
         uint8_t read(uint16_t address);
         void write(uint16_t address, uint8_t value);
-        void setCartridge(Cartridge * cartridge);
 
 };

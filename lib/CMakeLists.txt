@@ -12,4 +12,6 @@ add_library(mylib
 
     stack.cpp
 
+    ram.cpp
+
 )
