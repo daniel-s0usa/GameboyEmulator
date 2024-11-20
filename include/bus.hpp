@@ -2,6 +2,7 @@
 
 #include <cartridge.hpp>
 #include <ram.hpp>
+#include <io.hpp>
 
 class Bus {
     private:
@@ -10,6 +11,8 @@ class Bus {
         // variables
         Cartridge * _cartridge;
         Ram _ram;
+        Io _io;
+        uint8_t interrupt_enable;
 
     public:
         // Constructor

@@ -27,7 +27,10 @@ typedef enum{
     LD,
     SUB,
     XOR,
-    JR
+    JR,
+    DI,
+    LDH,
+    CP
 } instruction;
 
 typedef enum{
@@ -120,6 +123,7 @@ class Cpu {
         Bus * _bus;
         Stack * _stack;
         Reg reg;
+        bool _ime;
 
         // Maps
         static std::map<uint8_t, operation> operationMap;

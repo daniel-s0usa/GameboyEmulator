@@ -226,6 +226,30 @@ emulator.cpp.s:
 	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/emulator.cpp.s
 .PHONY : emulator.cpp.s
 
+io.o: io.cpp.o
+.PHONY : io.o
+
+# target to build an object file
+io.cpp.o:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/io.cpp.o
+.PHONY : io.cpp.o
+
+io.i: io.cpp.i
+.PHONY : io.i
+
+# target to preprocess a source file
+io.cpp.i:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/io.cpp.i
+.PHONY : io.cpp.i
+
+io.s: io.cpp.s
+.PHONY : io.s
+
+# target to generate assembly for a file
+io.cpp.s:
+	cd /home/daniel/Projetos/GameboyEmulator/Debug && $(MAKE) $(MAKESILENT) -f lib/CMakeFiles/mylib.dir/build.make lib/CMakeFiles/mylib.dir/io.cpp.s
+.PHONY : io.cpp.s
+
 ram.o: ram.cpp.o
 .PHONY : ram.o
 
@@ -295,6 +319,9 @@ help:
 	@echo "... emulator.o"
 	@echo "... emulator.i"
 	@echo "... emulator.s"
+	@echo "... io.o"
+	@echo "... io.i"
+	@echo "... io.s"
 	@echo "... ram.o"
 	@echo "... ram.i"
 	@echo "... ram.s"

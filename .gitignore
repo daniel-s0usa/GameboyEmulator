@@ -41,4 +41,5 @@ build/Makefile
 build/src/
 doc/html/
 doc/latex/
+*.gb
 

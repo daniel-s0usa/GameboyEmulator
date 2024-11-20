@@ -14,4 +14,6 @@ add_library(mylib
 
     ram.cpp
 
+    io.cpp
+
 )

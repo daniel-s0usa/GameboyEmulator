@@ -4,6 +4,7 @@
 //Other component imports
 #include <cartridge.hpp>
 #include <ram.hpp>
+#include <io.hpp>
 
 //System imports
 #include <iostream>
@@ -54,13 +55,13 @@ uint8_t Bus::read(uint16_t address) {
         throw std::invalid_argument("NOT YET IMPLEMENTED");
     }
     else if (0xFF00 <= address && address <= 0xFF7F) {     // I/O Registers - I/O registers are mapped here.
-        throw std::invalid_argument("NOT YET IMPLEMENTED");
+        return _io.read(address);
     }
     else if (0xFF80 <= address && address <= 0xFFFE) {     // HRAM - Internal CPU RAM
         return _ram.read(address);
     }
     else if (0xFFFF == address) {               // IE Register - Interrupt enable flags.
-        throw std::invalid_argument("NOT YET IMPLEMENTED");
+        return interrupt_enable;
     }
 
     return (uint8_t) 0xFFFF;
@@ -99,12 +100,12 @@ void Bus::write(uint16_t address, uint8_t value) {
         throw std::invalid_argument("NOT YET IMPLEMENTED");
     }
     else if (0xFF00 <= address && address <= 0xFF7F) {     // I/O Registers - I/O registers are mapped here.
-        throw std::invalid_argument("NOT YET IMPLEMENTED");
+        _io.write(address, value);
     }
     else if (0xFF80 <= address && address <= 0xFFFE) {     // HRAM - Internal CPU RAM
         _ram.write(address, value);
     }
     else if (0xFFFF == address) {               // IE Register - Interrupt enable flags.
-        throw std::invalid_argument("NOT YET IMPLEMENTED");
+        interrupt_enable = value;
     }
 }
