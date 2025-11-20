@@ -37,9 +37,15 @@ build/lib/
 build/tests/
 **/CMakeFiles
 *.cmake
-build/Makefile
+*/Makefile
+Makefile
 build/src/
 doc/html/
 doc/latex/
 *.gb
+
+
+GameboyEmulator
+core
+CMakeCache.txt
 
